@@ -38,10 +38,14 @@ int main(int argc, char** argv)
 {
 		fprintf(stdout,"%s\'pid: %d\r\n",argv[0],getpid());
 		dict *d = dictCreate(&keyptrDictType,NULL);
-		int retval = dictAdd(d,sdsnew("key"),"val");
-		dictEntry *de = dictFind(d,sdsnew("key"));
+		sds key = sdsnew("key");
+		sds val = sdsnew("val");
+		int retval = dictAdd(d,key,val);
+		dictEntry *de = dictFind(d,key);
 		(void)de;
 		(void)retval;
+		sdsfree(key);
+		sdsfree(val);
 		return 0;
 }
 
